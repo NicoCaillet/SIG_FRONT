@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+import {DataProvided} from "./context/dataContext";
+import Home from "./pages/HomePage/HomePage";
+import Login from "./pages/login/Login";
+import DetailJob from './pages/DetailJob/DetailJob';
+import PageNotFound from './pages/PageNotFound/PageNotFound'
+import AllBudgets from './pages/Budgets/Budgets'
+import CreateBudgets from './pages/CreateBudgets/CreateBudets'
+import Requirements from './pages/Requirements/Requirements'
+export default function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DataProvided>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/jobs/:id" element={<DetailJob />} />
+          <Route path="/createBudgets" element={<CreateBudgets />} />
+          <Route path="/allBudgets" element={<AllBudgets />} />
+          <Route path="/requirements" element={<Requirements />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </Router>
+    </DataProvided>
   );
 }
-
-export default App;

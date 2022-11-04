@@ -1,0 +1,13 @@
+.row{
+    display: flex;
+}
+
+.title{
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.button{
+    position: absolute;
+    margin-top: -16px;
+}

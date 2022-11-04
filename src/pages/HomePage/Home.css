@@ -1,0 +1,8 @@
+.homeContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mappedJobs{
+    width: 45%;
+}

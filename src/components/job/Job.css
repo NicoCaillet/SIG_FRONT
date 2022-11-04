@@ -1,0 +1,12 @@
+.containerItem{
+    border: 1px solid lightblue;
+    padding: 30px;
+    display: flex;
+    margin-bottom: 38px;
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+.jobColumn{
+    width: 50%;
+}

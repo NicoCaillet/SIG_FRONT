@@ -1,0 +1,13 @@
+.container{
+    display: grid;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+.title{
+    text-align: center;
+}
+
+.input{
+    margin-right: 20px;
+}
