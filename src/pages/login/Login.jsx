@@ -8,6 +8,8 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from "@mui/material/Button";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import {URL} from '../../constants/data'
+
 
 function Login() {
   let navigate = useNavigate();
@@ -18,7 +20,7 @@ function Login() {
 
   const onSubmit = () => {
     axios
-      .post("http://localhost:8080/api/users/login", {
+      .post(`${URL}/users/login`, {
         email: userName,
         password: password,
       })
