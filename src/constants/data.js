@@ -1,6 +1,6 @@
 // data hardcodeada
 // export const URL = 'http://localhost:8080/api'
-export const URL = 'http://edaa-186-136-8-14.ngrok-free.app/api'
+export const URL = 'https://edaa-186-136-8-14.ngrok-free.app/api'
 
 
 const jobs = [{
