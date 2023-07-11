@@ -3,6 +3,10 @@ import Navbar from "../../components/Navbar/Navbar";
 import { DataContext } from "../../context/dataContext";
 import { URL } from "../../constants/data";
 import axios from 'axios'
+import Stack from '@mui/material/Stack';
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+
 
 export default function DetailJob() {
   const { userRole } = useContext(DataContext);
@@ -52,16 +56,22 @@ export default function DetailJob() {
                   border: "1px solid gray",
                 }}
               >
-                <p> Position </p>
-                <input type="text" className="input" style={{ height: 25 }} onChange={handleChangePos}/>
-                <p> Salary</p>
-                <input type="text" className="input" style={{ height: 25 }} onChange={handleChangeSal}/>
-                {/* <p> State</p>
-                <input type="text" className="input" style={{ height: 25 }} /> */}
-                <input type="button" value="Create Budgets" onClick={onSubmit} />
+                {/*<p> Position </p>*/}
+                {/*<input type="text" className="input" style={{ height: 25 }} onChange={handleChangePos}/>*/}
+                {/*<p> Salary</p>*/}
+                {/*<input type="text" className="input" style={{ height: 25 }} onChange={handleChangeSal}/>*/}
+                {/*/!* <p> State</p>*/}
+                {/*<input type="text" className="input" style={{ height: 25 }} /> *!/*/}
+                {/*<input type="button" value="Create Budgets" onClick={onSubmit} />*/}
+                <Stack spacing={2} direction="column">
+                  <TextField  label="Position" variant="outlined" onChange={handleChangePos} />
+                  <TextField  label="Salary" variant="outlined" onChange={handleChangeSal} />
+                  <Button  variant="contained" onClick={onSubmit}>Create</Button>
+
+                </Stack>
               </div>
             </div>
-          ): <p> you need to be a team leader!</p>}
+          ): <p> Only team leaders can create budgets</p>}
           
         </div>
       </div>

@@ -5,6 +5,10 @@ import "./DetailJob.css";
 import Aplication from "../../components/aplication/Aplication";
 import { URL } from "../../constants/data";
 import axios from "axios";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+
 
 export default function DetailJob() {
   const [localJob, setLocalJob] = useState({});
@@ -14,6 +18,7 @@ export default function DetailJob() {
   const [contact, setcontact] = useState("");
   const [applications, setapplications] = useState([]);
 
+
   const { actualJob, userRole } = useContext(DataContext);
 
   useEffect(() => {
@@ -22,12 +27,17 @@ export default function DetailJob() {
     if (JSON.stringify(actualJob.actualJob) !== "{}") {
       localStorage.setItem("actualJob", JSON.stringify(actualJob));
     }
-    console.log('locals', localJob, actualJob)
+
     axios
     .get(`${URL}/applications/jobs?jobId=${actualJob.id}`)
     .then(function (response) {
-      console.log(response.data, "las applications get");
-      setapplications(response.data);
+      if(userRole.userRole === 'TEAM_LEADER') {
+        setapplications(response.data.filter(app => app.status === 'SECOND_INTERVIEW' || app.status === 'APPROVED'));
+      } else if(userRole.userRole === 'RR_HH') {
+        setapplications(response.data.filter(app => (app.status !== 'SECOND_INTERVIEW' )));
+      } else {
+        setapplications(response.data);
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -95,12 +105,11 @@ export default function DetailJob() {
             <div> No application found </div>
           )}
           {userRole.userRole === "default" && (
-            <input
-              className="favorite styled"
-              type="button"
-              value="Apply"
+            <Button variant="contained"
+              // className="favorite styled"
+              // type="button"
               onClick={openApplicationForm}
-            />
+            > Apply </Button>
           )}
           {form && (
             <div>
@@ -108,35 +117,83 @@ export default function DetailJob() {
               <div className="mappedJobs">
                 <div>
                   <h2>Application Form </h2>
-                  <div
-                    style={{
-                      width: 300,
-                      color: "black",
-                      borderRadius: 10,
-                      padding: 20,
-                      border: "1px solid gray",
-                    }}
+                  {/*<div*/}
+                  {/*  style={{*/}
+                  {/*    width: 300,*/}
+                  {/*    color: "black",*/}
+                  {/*    borderRadius: 10,*/}
+                  {/*    padding: 20,*/}
+                  {/*    border: "1px solid gray",*/}
+                  {/*  }}*/}
+                  {/*>*/}
+                  <Box
+                      component="form"
+                      sx={{
+                        '& .MuiTextField-root': { m: 1, width: '25ch' },
+                      // border: "2px solid black",
+                      //   borderRadius: "5px",
+                        paddingBottom:"10px",
+                        width:"350px"
+
+
+                      }}
+                      noValidate
+                      autoComplete="off"
                   >
-                    <p> Speech </p>
-                    <input
-                      type="text"
-                      className="input"
-                      style={{ height: 25 }}
-                      onChange={handleChangeSpeech}
-                    />
-                    <p> Contact</p>
-                    <input
-                      type="text"
-                      className="input"
-                      style={{ height: 25 }}
-                      onChange={handleChangeContact}
-                    />
-                    <input
-                      type="button"
-                      value="APPLY"
-                      onClick={onSubmitApplication}
-                    />
-                  </div>
+
+
+                {/*<p> Speech </p>*/}
+                    {/*<input*/}
+                    {/*  type="text"*/}
+                    {/*  className="input"*/}
+                    {/*  style={{ height: 25 }}*/}
+                    {/*  onChange={handleChangeSpeech}*/}
+                    {/*/>*/}
+                   <div>
+                     <TextField
+                         id="outlined-multiline-flexible"
+                         label="Speech"
+                         multiline
+                         maxRows={3}
+                         // value={value}
+                         onChange={handleChangeSpeech}
+                         style={
+                           {width: "300px",}
+                         }
+                     />
+                   </div>
+                    <div>
+                      <TextField
+                          id="outlined-multiline-flexible"
+                          label="Personal information"
+                          multiline
+                          maxRows={3}
+                          onChange={handleChangeContact}
+                          style={
+                            {width: "300px",}
+                          }
+                      />
+                    </div>
+                    <div>
+                      <Button style={{marginLeft:8}} variant="contained" onClick={onSubmitApplication}>Apply</Button>
+                    </div>
+
+
+
+                    {/*<input*/}
+                    {/*    type="text"*/}
+                    {/*    className="input"*/}
+                    {/*    style={{ height: 25 }}*/}
+                    {/*    onChange={handleChangeContact}*/}
+                    {/*/>*/}
+                    {/*<p> Contact</p>*/}
+                    {/*<input*/}
+                    {/*  type="button"*/}
+                    {/*  value="APPLY"*/}
+                    {/*  onClick={onSubmitApplication}*/}
+                    {/*/>*/}
+                  {/*</div>*/}
+                  </Box>
                 </div>
               </div>
             </div>
@@ -144,19 +201,24 @@ export default function DetailJob() {
           {userRole.userRole === "RR_HH" && (
             <div>
               {" "}
-              <input
-                className="favorite styled"
-                type="button"
-                style={{ marginRight: 20, height: 40 }}
-                value="Edit description"
-                onClick={() => setEditDescription(!editDescription)}
-              />
+              {/*<input*/}
+              {/*  className="favorite styled"*/}
+              {/*  type="button"*/}
+              {/*  style={{ marginRight: 20, height: 40 }}*/}
+              {/*  value="Edit description"*/}
+              {/*  //aasd*/}
+              {/*  onClick={() => setEditDescription(!editDescription)}*/}
+              {/*/>*/}
+              <Button style={{ marginRight: 20, height: 40 }}
+                      variant="contained" onClick={() => setEditDescription(!editDescription)}> Edit description </Button>
               {editDescription && (
-                <input
-                  type="button"
-                  style={{ marginRight: 20, height: 40 }}
-                  value="Finish"
-                />
+                // <input
+                //   type="button"
+                //   style={{ marginRight: 20, height: 40 }}
+                //   value="Confirm"
+                // />
+                  <Button style={{ marginRight: 20, height: 40 }}
+                          variant="contained" >Confirm </Button>
               )}
             </div>
           )}

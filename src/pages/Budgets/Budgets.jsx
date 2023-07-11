@@ -4,6 +4,10 @@ import Navbar from "../../components/Navbar/Navbar";
 import { DataContext } from "../../context/dataContext";
 import axios from "axios";
 import { URL } from "../../constants/data";
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import TextField from "@mui/material/TextField";
+
 export default function DetailJob() {
   const [allBudgets, setallBudgets] = useState([]);
   const [approvedBudgets, setapprovedBudgets] = useState([]);
@@ -30,7 +34,7 @@ export default function DetailJob() {
 
   const getAllBudgets = () => {
     axios
-      .get(`${URL}/budgets?status=REVIEW`)
+      .get(`${URL}/budgets/all`)
       .then(function (response) {
         setallBudgets(response.data);
       })
@@ -86,10 +90,10 @@ export default function DetailJob() {
         {" "}
         <div className="mappedJobs">
           <div style={{ marginTop: 20 }}>
-            <div>All budgets</div>
-            {approvedBudgets &&
+            <h2>All budgets</h2>
+            {allBudgets &&
               userRole.userRole === "FINANCE" &&
-              approvedBudgets.map((item) => {
+              allBudgets.map((item) => {
                 return (
                   <div className="containerItem" key={item.id}>
                     <div className="jobColumn">
@@ -109,6 +113,12 @@ export default function DetailJob() {
                               handleAprovedBudget(item.id, "APPROVED")
                             }
                           />
+                          {/*<Stack spacing={2} direction="row">*/}
+                          {/*  <Button variant="contained" onClick={handleAprovedBudget(item.id, "APPROVED")}>Approve</Button>*/}
+                          {/*  <Button variant="contained" onClick={handleRechazoBudget(item.id, "REJECTED")}>Reject</Button>*/}
+
+                          {/*</Stack>*/}
+
                           <input
                             type="button"
                             value="Rechazar"
@@ -122,8 +132,7 @@ export default function DetailJob() {
                   </div>
                 );
               })}
-            {(userRole.userRole === "TEAM_LEADER" ||
-              userRole.userRole === "FINANCE") &&
+            {userRole.userRole === "TEAM_LEADER" &&
               approvedBudgets.map((item) => {
                 return (
                   <div className="containerItem" key={item.id}>
@@ -134,30 +143,41 @@ export default function DetailJob() {
                     <div className="jobColumn">
                       <p>state: {item.status}</p>
                       <p>ID: {item.id}</p>
-                      <div>
-                        {" "}
-                        <input
-                          type="button"
-                          value="create requirements"
-                          onClick={() => setRequirementInput(!requirementInput)}
-                        />
-                      </div>
+                      {/*<div>*/}
+                      {/*  {" "}*/}
+                      {/*  <input*/}
+                      {/*    type="button"*/}
+                      {/*    value="create requirements"*/}
+                      {/*    onClick={() => setRequirementInput(!requirementInput)}*/}
+                      {/*  />*/}
+                      {/*</div>*/}
+
+                      <Button  variant="contained" onClick={() => setRequirementInput(!requirementInput)}>Add requirements</Button>
+
+
                       {requirementInput && (
-                        <div>
-                          {" "}
-                          <input
-                            type="text"
-                            value={requirementValue}
-                            onChange={handleRequirementValue}
-                          />{" "}
-                          <input
-                            type="button"
-                            value="Confirm"
-                            onClick={() =>
-                              handlerequirement(item, requirementValue)
-                            }
-                          />
-                        </div>
+                        // <div>
+                        //   {" "}
+                        //   <input
+                        //     type="text"
+                        //     value={requirementValue}
+                        //     onChange={handleRequirementValue}
+                        //   />{" "}
+                        //   <input
+                        //     type="button"
+                        //     value="Confirm"
+                        //     onClick={() =>
+                        //       handlerequirement(item, requirementValue)
+                        //     }
+                        //   />
+                        // </div>
+                          <div style={{maxWidth:"218px", marginTop:"15px"}}>
+                          <Stack spacing={1} direction="column">
+                            <TextField id="" label="Requirements" multiline
+                                       maxRows={3}  onChange={handleRequirementValue} value={requirementValue} />
+                            <Button  style={{width:"109px"}} variant="contained" onClick={()=> handlerequirement(item,requirementValue)} >Confirm</Button>
+                          </Stack>
+                          </div>
                       )}
                     </div>
                   </div>

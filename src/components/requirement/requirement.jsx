@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {URL} from '../../constants/data'
+import Button from "@mui/material/Button";
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+
+
 function Job({ props }) {
   const [description, setdescription] = useState("");
   const [editor, seteditor] = useState(false);
@@ -34,26 +39,32 @@ function Job({ props }) {
       </div>
       <div className="jobColumn">
         <p>Requirements: {props.requirements}</p>
-        <input
-          type="button"
-          value="Complete description"
-          onClick={() => seteditor(!editor)}
-        />
-        {editor && (
-          <div>
-            {" "}
-            <input
-              type="text"
-              name=""
-              id=""
-              value={description}
-              onChange={handleChangereq}
-            />
-            <input
-              type="button"
-              value="Confirm"
-              onClick={completeDescription}
-            />
+        {/*<input*/}
+        {/*  type="button"*/}
+        {/*  value="Complete description"*/}
+        {/*  onClick={() => seteditor(!editor)}*/}
+        {/*/>*/}
+          <Button  variant="contained" onClick={() => seteditor(!editor)}>Complete description</Button>
+
+          {editor && (
+          <div style={{maxWidth:"218px", marginTop:"30px"}}>
+              <Stack spacing={1} direction="column">
+                  <TextField id="" label="Description" multiline maxRows={4} onChange={handleChangereq} value={description} />
+                  <Button  style={{width:"109px"}} variant="contained" onClick={completeDescription}>Confirm</Button>
+              </Stack>
+              {" "}
+            {/*<input*/}
+            {/*  type="text"*/}
+            {/*  name=""*/}
+            {/*  id=""*/}
+            {/*  value={description}*/}
+            {/*  onChange={handleChangereq}*/}
+            {/*/>*/}
+            {/*<input*/}
+            {/*  type="button"*/}
+            {/*  value="Confirm"*/}
+            {/*  onClick={completeDescription}*/}
+            {/*/>*/}
           </div>
         )}
       </div>

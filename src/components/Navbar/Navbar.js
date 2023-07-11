@@ -8,6 +8,8 @@ import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/dataContext";
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+
 
 import "./Navbar.css";
 const pages = ["Budgets", "Create Budget"];
@@ -40,17 +42,17 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {userRole.userRole === "FINANCE" ? (
-            <AdbIcon
+            <LinkedInIcon
               sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
               onClick={() => navigate("/budgetCreation")}
             />
           ) : (
-            <AdbIcon
+            <LinkedInIcon
               sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
               onClick={() => navigate("/")}
             />
           )}
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <LinkedInIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap

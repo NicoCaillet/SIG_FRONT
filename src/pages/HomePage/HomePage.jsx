@@ -61,7 +61,7 @@ export default function Home() {
       <Navbar />
       <div className="homeContainer">
         {" "}
-        {userRole.userRole && (
+        {userRole.userRole === 'RR_HH' && (
           <div>
             <h3>Application Efficiency: {effiencyNumber}</h3>
             <h3>Application Clarity: {clarity}</h3>
@@ -69,14 +69,14 @@ export default function Home() {
         )}
         <h2>Jobs</h2>
         <div className="mappedJobs">
-          {console.log(allJobs.allJobs, "html")}
+
           {jobsState.map((item, index) => {
             return (
               <div>{item.description && <Job props={item} key={index} />}</div>
             );
           })}
         </div>
-        <div></div>
+
       </div>
     </div>
   );
